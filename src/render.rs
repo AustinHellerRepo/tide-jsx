@@ -16,9 +16,9 @@ pub trait Render {
     }
 }
 
-impl Render for Box<dyn Render> {
+impl<T: Render + Sized> Render for Box<T> {
     fn render_into<W: Write>(self, writer: &mut W) -> Result where Self: Sized {
-        self.render_into(writer)
+        (*self).render_into(writer)
     }
 }
 
