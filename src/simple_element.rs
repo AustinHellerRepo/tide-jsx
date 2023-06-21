@@ -33,11 +33,13 @@ impl<T: Render> Render for SimpleElement<'_, T> {
     fn render_into<W: Write>(self, writer: &mut W) -> Result {
         match self.contents {
             None => {
+                println!("writing <{} [attributes] />", self.tag_name);
                 write!(writer, "<{}", self.tag_name)?;
                 write_attributes(self.attributes, writer)?;
                 write!(writer, "/>")
             }
             Some(renderable) => {
+                println!("writing <{} [attributes] >[internals]</{}>", self.tag_name, self.tag_name);
                 write!(writer, "<{}", self.tag_name)?;
                 write_attributes(self.attributes, writer)?;
                 write!(writer, ">")?;
