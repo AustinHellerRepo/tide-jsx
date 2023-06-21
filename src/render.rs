@@ -6,7 +6,7 @@ use std::fmt::{Result, Write};
 pub trait Render {
     /// Render the component to a writer.
     /// Make sure you escape html correctly using the `render::html_escaping` module
-    fn render_into<W: Write>(self, writer: &mut W) -> Result;
+    fn render_into<W: Write>(self, writer: &mut W) -> Result where Self: Sized;
 
     /// Render the component to string
     fn render(self) -> String where Self: Sized {
