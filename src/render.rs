@@ -6,7 +6,7 @@ use std::fmt::{Result, Write};
 pub trait Render {
     /// Render the component to a writer.
     /// Make sure you escape html correctly using the `render::html_escaping` module
-    fn render_into<W: Write>(self, writer: &mut W) -> Result where Self: Sized;
+    fn render_into<W: Write>(self, writer: &mut W) -> Result;
 
     /// Render the component to string
     fn render(self) -> String where Self: Sized {
@@ -16,11 +16,11 @@ pub trait Render {
     }
 }
 
-impl<T: Render + Sized> Render for Box<T> {
-    fn render_into<W: Write>(self, writer: &mut W) -> Result where Self: Sized {
-        (*self).render_into(writer)
-    }
-}
+//impl Render for Box<dyn Render> {
+//    fn render_into<W: Write>(self, writer: &mut W) -> Result where Self: Sized {
+//        (*self).render_into(writer)
+//    }
+//}
 
 /// Does nothing
 impl Render for () {
