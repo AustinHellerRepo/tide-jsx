@@ -24,15 +24,9 @@ impl Render for std::borrow::Cow<'_, str> {
 #[derive(Debug)]
 pub struct Raw<'s>(&'s str);
 
-impl<'s> From<&'s str> for Raw<'s> {
-    fn from(s: &'s str) -> Self {
-        Raw(s)
-    }
-}
-
-impl<'s> From<&'s String> for Raw<'s> {
-    fn from(s: &'s String) -> Self {
-        Raw(s)
+impl<'s, T: Into<&'s str>> From<T> for Raw<'s> {
+    fn from(s: T) -> Self {
+        Raw(s.into())
     }
 }
 
