@@ -30,6 +30,12 @@ impl<'s> From<&'s str> for Raw<'s> {
     }
 }
 
+impl<'s> From<&'s String> for Raw<'s> {
+    fn from(s: &'s String) -> Self {
+        Raw(s)
+    }
+}
+
 /// A raw (unencoded) html string
 impl<'s> Render for Raw<'s> {
     fn render_into<W: Write>(self, writer: &mut W) -> Result {
